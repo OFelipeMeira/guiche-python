@@ -13,7 +13,7 @@ import mysql.connector
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"/media/aa/KINGSTON/assets/frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"/home/aa/Downloads/guiche-python-main/assets/frame0")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -31,7 +31,6 @@ window2.overrideredirect(True)
 
 
 def conecta():
-    
    
     try:
         conexao = pymysql.connect(
@@ -42,7 +41,7 @@ def conecta():
             database='secretariasenai'
         )
     except Exception as e:
-            print(f"We can't connected with the server. \033[31m ERROR!: {e} \033[m")
+            print(f"a")
     else:
        return conexao
 
@@ -59,28 +58,30 @@ def chamados():
             lista = []
             conexao = conecta()
             cursor = conexao.cursor()
-            cursor.execute("SELECT name, guiche FROM espera WHERE ja_atendido = 1 ORDER BY id DESC")
+            cursor.execute("SELECT name, guiche FROM espera WHERE ja_atendido = 1 ORDER BY ordem DESC")
             linhas = cursor.fetchall()
             cont = 0
+            linhas = list(linhas)
             for i in linhas:
                 cont += 1
                 if cont > 3: 
                     break
-                lista.append(i[0])
                 lista.append(i[1])
+                lista.append(i[0])
             executaefecha(cursor, conexao)
-            time.sleep(2)
-            chamado1.configure(text=f"{lista[0]}\nGuichê: {lista[1]}")
-            chamado2.configure(text=f"{lista[2]}\nGuichê: {lista[3]}")
-            chamado3.configure(text=f"{lista[4]}\nGuichê: {lista[5]}")
-            chamadoprincip.configure(text=f"{linhas[0][0]}")
-            chamadoguiche.configure(text=f"{linhas[0][1]}")
+            time.sleep(1)
+            chamado1.configure(text=f"{lista[1]}\nGuichê: {lista[0]}")
+            chamado2.configure(text=f"{lista[3]}\nGuichê: {lista[2]}")
+            chamado3.configure(text=f"{lista[5]}\nGuichê: {lista[4]}")
+            chamadoprincip.configure(text=f"{lista[1]}")
+            chamadoguiche.configure(text=f"{lista[0]}")
             chamado1.update()
             chamado2.update()
             chamado3.update()
             chamadoprincip.update()
             chamadoguiche.update()
-        except:
+        except Exception as e:
+            print(e)
             continue
 
 

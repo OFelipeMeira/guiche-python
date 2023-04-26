@@ -14,7 +14,7 @@ from pynput.keyboard import Key, Controller, KeyCode
 import pymysql
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"/media/aa/KINGSTON/assets/frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"/home/aa/Downloads/guiche-python-main/assets/frame0")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -99,7 +99,7 @@ def tela2():
         font=("Gotham Medium", 64 * -1),
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: [infos.append(1),button_c.place_forget(), button_a.place_forget(), button_b.place_forget(), tela3(), window.tk.after(2000, lambda: place_tela1())],
+        command=lambda: [infos.append(1), infos.append("Preferencial"),button_c.place_forget(), button_a.place_forget(), button_b.place_forget(), tela3(), window.tk.after(2000, lambda: place_tela1())],
         relief="flat"
     )
     button_c.place(
@@ -113,7 +113,7 @@ def tela2():
         font=("Gotham Medium", 64 * -1),
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: [infos.append(2), button_c.place_forget(), button_a.place_forget(), button_b.place_forget(), tela3(), window.tk.after(2000, lambda: place_tela1())],
+        command=lambda: [infos.append(0), infos.append("Geral"), button_c.place_forget(), button_a.place_forget(), button_b.place_forget(), tela3(), window.tk.after(2000, lambda: place_tela1())],
         relief="flat"
     )
     button_a.place(
@@ -129,7 +129,7 @@ def tela2():
         font=("Gotham Medium", 64 * -1),
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: [infos.append(3) ,button_c.place_forget(), button_a.place_forget(), button_b.place_forget(), tela3(), window.tk.after(2000, lambda: place_tela1())],
+        command=lambda: [infos.append(0), infos.append("Matricula"), button_c.place_forget(), button_a.place_forget(), button_b.place_forget(), tela3(), window.tk.after(2000, lambda: place_tela1())],
         relief="flat"
     )
     button_b.place(
@@ -427,7 +427,7 @@ button_image_1 = PhotoImage(
 button_1 = Button(
     image=button_image_1,
     borderwidth=0,
-    highlightthickness=0,
+    highlightthickness=0, 
     command=lambda: [shift("q"), format_nome()],
     relief="flat"
 )
@@ -804,16 +804,16 @@ def tela3():
 def inserebanco(infos: list):
     try:
         cursor, conexao = conecta()
-        cursor.execute("INSERT INTO secretariasenai.espera(name, motivo, ja_atendido) VALUES (%s, %s, %s);", (infos[0], infos[1], True))
+        cursor.execute("INSERT INTO secretariasenai.espera(name, preferencial, motivo , ja_atendido) VALUES (%s, %s, %s, %s);", (infos[0], infos[1], infos[2], False))
         executaefecha(cursor, conexao)
     except:
         try: #tentemais
             cursor, conexao = conecta()
-            cursor.execute("INSERT INTO secretariasenai.espera(name, motivo, ja_atendido) VALUES (%s, %s, %s);", (infos[0], infos[1], True))
+            cursor.execute("INSERT INTO secretariasenai.espera(name, preferencial, motivo, ja_atendido) VALUES (%s, %s, %s, %s);", (infos[0], infos[1], infos[2], False))
             executaefecha(cursor, conexao)
         except:
             cursor, conexao = conecta()
-            cursor.execute("INSERT INTO secretariasenai.espera(name, motivo, ja_atendido) VALUES (%s, %s, %s);", (infos[0], infos[1], True))
+            cursor.execute("INSERT INTO secretariasenai.espera(name, preferencial, motivo, ja_atendido) VALUES (%s, %s, %s, %s);", (infos[0], infos[1], infos[2], False))
             executaefecha(cursor, conexao)
             
 
