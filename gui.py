@@ -14,7 +14,7 @@ from pynput.keyboard import Key, Controller, KeyCode
 import pymysql
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"/home/aa/Downloads/guiche-python-main/assets/frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r".\assets\frame0")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -156,7 +156,7 @@ canvas.create_rectangle(
     0.0,
     1920.0,
     124.0,
-    fill="#F20505",
+    fill="#ff0000",
     outline="")
 
 canvas.create_rectangle(
@@ -164,7 +164,7 @@ canvas.create_rectangle(
     1021.0,
     1920.0,
     1080.0,
-    fill="#F20505",
+    fill="#ff0000",
     outline="")
 
 def place_tela1():
